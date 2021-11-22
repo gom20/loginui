@@ -36,3 +36,25 @@
     transform: rotate(360deg);
   }
 }
+
+.panel {
+  margin-top:5% !important;
+  max-width: 400px !important;
+  padding-top: 50px;
+  padding-bottom: 40px;
+  padding-left: 30px !important;
+  padding-right: 30px !important;
+  background-color: white;
+  max-width:300px;
+  align-items: center !important;
+  box-shadow: 1px 1px 3px silver;
+}
+
+.text-link {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.text-link:hover {
+  color: white;
+}

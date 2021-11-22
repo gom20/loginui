@@ -1,8 +1,12 @@
 
+import Carousel from "react-bootstrap/Carousel";
+
+
 function Home(){
     return (
         <div>
-            <h1>Home Page</h1>
+            <br/><br/><br/>
+            <h1>Home</h1>
         </div>
     );
 }
