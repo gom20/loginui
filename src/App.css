@@ -58,3 +58,29 @@
 .text-link:hover {
   color: white;
 }
+
+.text {
+  color: grey;
+  text-decoration: inherit;
+}
+
+.link {
+  color: black;
+  text-decoration: inherit;
+}
+
+.link:hover {
+  color: #282c34;
+  text-decoration: inherit;
+}
+
+.box {
+  display: flex;
+  justify-content: space-between;
+}
+
+.invalid-input {
+  text-align: start !important;
+  color: crimson;
+  font-size: small;
+}

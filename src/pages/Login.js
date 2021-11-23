@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
+import {Link} from 'react-router-dom';
 
 function Login(){
     return (
@@ -29,7 +30,13 @@ function Login(){
                         </Button>
                     </div>
                 </Form>
+                <br/>
+                <div class="box">
+                    <div><Link to="/find" className="link">Forgot Password?</Link></div>
+                    <div><Link to="/join" className="link">Sign Up</Link></div>
+                </div>               
             </Container>
+           
         </div>
     );
 }
