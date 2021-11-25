@@ -5,9 +5,15 @@ import Button from "react-bootstrap/Button";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import Popup from '../components/Popup';
+import { useNavigate } from 'react-router-dom';
+
 
 function Join() {
+    const navigate  = useNavigate();
+    const [popup, setPopup] = useState({open: false, title: "", message: "", callback: false});
 
     const [userId, setUserId] = useState("");
     const [password, setPassword] = useState("");
@@ -65,23 +71,54 @@ function Join() {
 
     const onSubmit = (e) => {
         if(!validation()) {
-            alert("Error");
+            setPopup({
+                open: true,
+                title: "Error",
+                message: "Please make sure all fields are filled in correctly."
+            });
             return;
         }
-        alert("Success");
-        // API Call
-        
+        axios.post("http://localhost:8080/signup", {
+            userId: userId,
+            password: password,
+            username: userName,
+            email: email
+        }).then(function (response) {
+            if(response.data.code == 0){
+                setPopup({
+                    open: true,
+                    title: "Confirm",
+                    message: "Registration Successful. Please Login.", 
+                    callback: function(){
+                        navigate("/login");
+                    }
+                });
+            } else {
+                let message = response.data.message;
+                if(response.data.code == 10000){
+                    message = "User ID is duplicated. Please enter a different User ID. "
+                }
+                setPopup({
+                    open: true,
+                    title: "Error",
+                    message: message
+                });
+            }
+        }).catch(function (error) {
+            console.log(error);
+        });
 
     }
 
     return (
         <div>
+            <Popup open = {popup.open} setPopup = {setPopup} message = {popup.message} title = {popup.title} callback = {popup.callback}/>
             <Container className="panel">
                 <Form>
                     <Form.Group as={Row} className="mb-3">
                         <Col sm>
                             <Form.Control maxLength={20} placeholder="UserID" value={userId} onChange={onChangeUserId} />
-                            {userIdError && <div class="invalid-input">User ID must be at least 5 letter and contain letters or numbers.</div>}
+                            {userIdError && <div class="invalid-input">User ID must be at least 5 characters and contain letters or numbers.</div>}
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3">
